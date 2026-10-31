@@ -1,0 +1,26 @@
+
+# Raw research database
+data-raw/
+
+# Generated research outputs
+output/
+
+# VHB generated Excel files
+VHB/*.xlsx
+VHB_reference/*.xlsx
+
+# Reference PDF data
+VHB_reference/data/
+
+# Python temporary files
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Local environments and secrets
+.venv/
+.env
+.streamlit/secrets.toml
+
+# Mac files
+.DS_Store
