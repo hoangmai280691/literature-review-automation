@@ -8,7 +8,6 @@ ROOT = Path(__file__).resolve().parent
 
 STEPS = [
     ("Deduplication", "de-dup", "notebook_dedup.py"),
-    ("VHB reference", "VHB_reference", "vhb_reference_master.py"),
     ("VHB screening", "VHB", "notebook_vhb.py"),
 ]
 
