@@ -1,6 +1,7 @@
 
 from pathlib import Path
 import subprocess
+import os
 import sys
 
 ROOT = Path(__file__).resolve().parent
@@ -21,8 +22,9 @@ for name, folder, filename in STEPS:
     print(f"\n=== Running: {name} ===", flush=True)
 
     result = subprocess.run(
-        [sys.executable, str(script)],
-        cwd=working_dir,
+    [sys.executable, str(script)],
+    cwd=working_dir,
+    env=os.environ.copy(),
     )
 
     if result.returncode != 0:

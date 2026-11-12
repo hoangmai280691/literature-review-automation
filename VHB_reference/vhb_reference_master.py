@@ -3,15 +3,16 @@ from pathlib import Path
 import pandas as pd
 from IPython.display import display
 import re
+import os
 
 # Notebook: leadership-review/VHB_reference/vhb_reference_master.ipynb
 REFERENCE_DIR = Path(".")
 DATA_DIR = REFERENCE_DIR / "data"
-VHB_DIR = Path("../VHB")
+VHB_DIR = Path(os.environ.get("LIT_REVIEW_VHB_REFERENCE_DIR", "../VHB"))
 
 PDF_PATTERN = "*.pdf"
 
-VHB_DIR.mkdir(exist_ok=True)
+VHB_DIR.mkdir(parents=True, exist_ok=True)
 
 print("PDF folder:", DATA_DIR.resolve())
 print("Output folder:", VHB_DIR.resolve())
@@ -461,5 +462,3 @@ print("=== EXPORT COMPLETE ===")
 print(f"File    : {output_file.resolve()}")
 print(f"Records : {len(vhb_export):,}")
 print(f"Journals: {vhb_export['journal_normalized'].nunique():,}")
-
-

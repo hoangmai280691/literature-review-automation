@@ -4,10 +4,15 @@ import pandas as pd
 from IPython.display import display
 import re
 import unicodedata
+import os
 
 PROJECT_DIR = Path("..")
 
-OUTPUT_DIR = PROJECT_DIR / "output"
+OUTPUT_DIR = Path(os.environ.get("LIT_REVIEW_OUTPUT_DIR", str(PROJECT_DIR / "output")))
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+VHB_REFERENCE_OUTPUT_DIR = Path(os.environ.get("LIT_REVIEW_VHB_REFERENCE_DIR", str(PROJECT_DIR / "VHB")))
+VHB_MATCHING_OUTPUT_DIR = Path(os.environ.get("LIT_REVIEW_VHB_MATCHING_DIR", str(PROJECT_DIR / "VHB_reference")))
+VHB_MATCHING_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 REFERENCE_DIR = PROJECT_DIR / "reference"
 
 MASTER_FILE = OUTPUT_DIR / "master_unique.xlsx"
@@ -118,7 +123,7 @@ from pathlib import Path
 print(Path.cwd())
 
 # %%
-VHB_REFERENCE_FILE = "vhb_reference_master.xlsx"
+VHB_REFERENCE_FILE = VHB_REFERENCE_OUTPUT_DIR / "vhb_reference_master.xlsx"
 
 vhb_ref = pd.read_excel(VHB_REFERENCE_FILE)
 
@@ -564,9 +569,7 @@ print(
 # 4. Export journal-matching workbook
 # ------------------------------------------------------------
 
-output_path = Path(
-    "../VHB_reference/vhb_journal_matching_master.xlsx"
-)
+output_path = VHB_MATCHING_OUTPUT_DIR / "vhb_journal_matching_master.xlsx"
 
 with pd.ExcelWriter(output_path, engine="openpyxl") as writer:
 
@@ -703,7 +706,7 @@ print(database_summary)
 
 # Load completed manual review
 manual_review = pd.read_excel(
-    "../VHB_reference/vhb_journal_matching_master.xlsx",
+    VHB_MATCHING_OUTPUT_DIR / "vhb_journal_matching_master.xlsx",
     sheet_name="Manual_Review"
 )
 
@@ -792,7 +795,7 @@ print("Eligible after manual     :", eligible_after)
 print("Eligible articles rescued :", eligible_after - eligible_before)
 
 # %%
-review_path = Path("../VHB_reference/vhb_journal_matching_master.xlsx")
+review_path = VHB_MATCHING_OUTPUT_DIR / "vhb_journal_matching_master.xlsx"
 
 manual_review = pd.read_excel(
     review_path,
@@ -837,5 +840,3 @@ screening_final.to_excel(
 
 print("\nArticles exported           :", len(screening_final))
 print("Saved                       :", output_path)
-
-

@@ -6,12 +6,13 @@ import pandas as pd
 from IPython.display import display
 import re
 import unicodedata
+import os
 
 # Notebook is located in leadership-review/de-dup/
 PROJECT_DIR = Path("..")
 
-RAW_DIR = PROJECT_DIR / "data-raw"
-OUTPUT_DIR = PROJECT_DIR / "output"
+RAW_DIR = Path(os.environ.get("LIT_REVIEW_RAW_DIR", str(PROJECT_DIR / "data-raw")))
+OUTPUT_DIR = Path(os.environ.get("LIT_REVIEW_OUTPUT_DIR", str(PROJECT_DIR / "output")))
 
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -117,7 +118,7 @@ files = sorted([
 
 if not files:
     raise FileNotFoundError(
-        f"No supported raw files found under: {RAW_DIR / DATABASE}"
+        f"No supported raw files found under: {RAW_DIR}"
     )
 
 print("Databases:", sorted({extract_database(file) for file in files}))
@@ -563,5 +564,3 @@ display(
         ]
     ]
 )
-
-
