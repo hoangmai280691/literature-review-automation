@@ -37,13 +37,7 @@ st.title("📚 Literature Review Automation")
 st.write("Deduplication → VHB Reference → Journal Matching & Filtering")
 st.info("Version 1: Runs the pipeline using existing project data or uploaded files.")
 
-st.subheader("Choose Data Source")
-data_source = st.radio(
-    "Choose data source",
-    ["Existing Data", "Uploaded Files"],
-    horizontal=True,
-    on_change=clear_results,
-)
+data_source = "Uploaded Files"
 
 uploaded_files = []
 if data_source == "Uploaded Files":
