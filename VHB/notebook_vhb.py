@@ -123,7 +123,7 @@ from pathlib import Path
 print(Path.cwd())
 
 # %%
-VHB_REFERENCE_FILE = VHB_REFERENCE_OUTPUT_DIR / "vhb_reference_master.xlsx"
+VHB_REFERENCE_FILE = Path(__file__).resolve().parent / "vhb_reference_master.xlsx"
 
 vhb_ref = pd.read_excel(VHB_REFERENCE_FILE)
 
